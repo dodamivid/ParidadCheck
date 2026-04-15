@@ -257,18 +257,22 @@ module.exports = {
 ```bash
 # Clonar el repositorio
 git clone https://github.com/NexCodeSolutions/paridad-check.git
-cd paridad-check/backend
+cd paridad-check
 
 # Crear entorno virtual
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 
 # Instalar dependencias
-pip install -r requirements.txt
+pip install -r backend/requirements.txt
 
-# Levantar el servidor
-uvicorn main:app --reload --port 8000
+# Levantar el servidor (desde la raíz del repo)
+uvicorn backend.main:app --reload --port 8000
 ```
+
+> Nota: el backend usa imports absolutos (`from backend.X import ...`),
+> por lo que `uvicorn` debe ejecutarse desde la raíz del repo y no desde
+> dentro de `backend/`.
 
 El backend estará disponible en: `http://localhost:8000`
 Documentación automática (Swagger): `http://localhost:8000/docs`

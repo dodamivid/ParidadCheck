@@ -6,6 +6,7 @@ import pytest
 from datetime import date
 from fastapi import HTTPException
 
+from backend.constants.legislacion import ART_PARIDAD_VERTICAL
 from backend.models.candidatura import Candidatura
 from backend.services.csv_parser import parsear_csv
 from backend.services.motor_paridad import validar
@@ -141,7 +142,7 @@ def test_paridad_vertical_violacion_danger():
     assert "PARIDAD_VERTICAL" in tipos
 
     articulos = [inc.articulo for inc in resultado.incumplimientos if inc.tipo == "PARIDAD_VERTICAL"]
-    assert all(a == "Art. 233 LGIPE" for a in articulos)
+    assert all(a == ART_PARIDAD_VERTICAL for a in articulos)
 
 
 # ---------------------------------------------------------------------------

@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /d/Paridad/ParidadCheck log --oneline -10)",
+      "Bash(python -m pip install -r backend/requirements.txt -q)",
+      "Bash(python -m pytest backend/tests/test_motor.py -v)",
+      "Bash(python -m pytest backend/tests/ -v)",
+      "Bash(python -m uvicorn backend.main:app --port 8000)",
+      "Bash(curl -s http://localhost:8000/api/health)",
+      "Bash(curl -s -X POST http://localhost:8000/api/validar -H \"Content-Type: application/json\" -d \"[]\" -w \"\\\\n[HTTP %{http_code}]\\\\n\")",
+      "Bash(curl -s http://localhost:8000/openapi.json)",
+      "Bash(python -c \"import sys, json; spec = json.load\\(sys.stdin\\); paths = spec['paths']; [print\\(f'{method.upper\\(\\):6} {path}  -> {info.get\\(\\\\\"summary\\\\\", info.get\\(\\\\\"description\\\\\", \\\\\"\\\\\"\\)\\)[:80]}'\\) for path, methods in paths.items\\(\\) for method, info in methods.items\\(\\)]\")",
+      "Bash(git clone:*)",
+      "Read(//tmp/**)",
+      "Bash(cp -r /tmp/anthropics-skills/skills/skill-creator \"D:/Paridad/ParidadCheck/.claude/skills/skill-creator\")",
+      "Bash(cp -r /tmp/anthropics-skills/skills/claude-api \"D:/Paridad/ParidadCheck/.claude/skills/claude-api\")",
+      "Bash(python -m pytest backend/tests/ -q)"
+    ]
+  }
+}

@@ -5,3 +5,24 @@
 html {
   background-color: #F8FAFC;
 }
+
+/* Impresión / "Guardar como PDF" del navegador (modo demo). */
+@media print {
+  html,
+  body {
+    background: #ffffff;
+  }
+
+  main {
+    padding: 0 !important;
+  }
+
+  section,
+  .rounded-xl {
+    break-inside: avoid;
+  }
+
+  table {
+    font-size: 11px;
+  }
+}

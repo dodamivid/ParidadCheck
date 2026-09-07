@@ -73,13 +73,25 @@ Un solo error puede derivar en la **impugnación de toda una lista de candidatur
 
 ## 🎬 Demo
 
-> 📹 *Demo en vivo disponible durante el hackathón — 15 y 16 de mayo de 2026*
+### 🌐 Demo en vivo (sin instalar nada)
+
+**https://dodamivid.github.io/ParidadCheck/**
+
+Pensado para quien solo quiere ver cómo funciona. En la página principal hay un
+panel **"¿Solo quieres ver cómo funciona?"** con conjuntos de datos de ejemplo
+—basados en listas del proceso electoral de Chihuahua— que se cargan con un clic.
+
+En este despliegue el motor de reglas y el parser de CSV corren **100 % en el
+navegador** (modo demo), por lo que no hace falta el backend de FastAPI. El único
+cambio respecto a la versión completa: el reporte se obtiene con **"Imprimir /
+Guardar PDF"** del navegador en lugar del PDF de reportlab.
+
+> El despliegue se actualiza solo en cada push a `main` mediante GitHub Actions
+> (`.github/workflows/deploy.yml`). Requiere activar Pages con *Source: GitHub Actions*.
 
 ```
-[ GIF / VIDEO DEMO AQUÍ ]
-
 Flujo completo:
-1. Drag & drop del CSV de candidaturas
+1. Drag & drop del CSV de candidaturas (o clic en un ejemplo)
 2. Preview y validación de formato
 3. Procesamiento del motor de reglas (~1 segundo)
 4. Dashboard con semáforo de resultados

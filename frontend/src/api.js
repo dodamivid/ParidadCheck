@@ -1,4 +1,19 @@
+import { parsearCsv } from './demo/csvParser.js'
+import { validar } from './demo/motorParidad.js'
+
 const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8000').replace(/\/$/, '')
+
+// Modo demo: el motor de reglas corre 100% en el navegador, sin backend.
+// Se activa explícitamente con VITE_API_MODE=demo (build de GitHub Pages) o
+// implícitamente cuando no hay ninguna URL de backend configurada.
+const API_MODE =
+  import.meta.env.VITE_API_MODE || (import.meta.env.VITE_API_URL ? 'api' : 'demo')
+export const ES_DEMO = API_MODE === 'demo'
+
+/** Ejecuta el motor de reglas en el navegador (modo demo). */
+export function validarTextoLocal(texto) {
+  return validar(parsearCsv(texto))
+}
 
 /**
  * Convierte el cuerpo de error de FastAPI (que puede ser string, objeto
@@ -47,10 +62,19 @@ async function readErrorBody(res) {
   }
 }
 
-/** Sube el CSV a POST /api/validar-csv y devuelve el ResultadoValidacion. */
-export async function validarCsv(file) {
+function archivoCsv(nombre, texto) {
+  return new File([texto], nombre || 'candidaturas.csv', { type: 'text/csv' })
+}
+
+/**
+ * Valida un CSV (contenido en texto) y devuelve el ResultadoValidacion.
+ * En modo demo corre el motor en el navegador; en modo api sube a FastAPI.
+ */
+export async function validarCsv(nombre, texto) {
+  if (ES_DEMO) return validarTextoLocal(texto)
+
   const form = new FormData()
-  form.append('archivo', file)
+  form.append('archivo', archivoCsv(nombre, texto))
 
   let res
   try {
@@ -67,9 +91,9 @@ export async function validarCsv(file) {
 }
 
 /** Sube el CSV a POST /api/reporte-pdf-csv y devuelve un Blob PDF. */
-export async function descargarReportePdf(file) {
+export async function descargarReportePdf(nombre, texto) {
   const form = new FormData()
-  form.append('archivo', file)
+  form.append('archivo', archivoCsv(nombre, texto))
 
   let res
   try {

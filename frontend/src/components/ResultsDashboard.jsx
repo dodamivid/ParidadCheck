@@ -3,7 +3,7 @@ import Semaforo from './Semaforo.jsx'
 import CriterioCard from './CriterioCard.jsx'
 import IncumplimientosTable from './IncumplimientosTable.jsx'
 import Alert from './Alert.jsx'
-import { descargarReportePdf } from '../api.js'
+import { descargarReportePdf, ES_DEMO } from '../api.js'
 
 const GRUPOS = [
   { titulo: 'Criterios de paridad', claves: ['paridad_horizontal', 'paridad_vertical', 'paridad_transversal'] },
@@ -13,15 +13,21 @@ const GRUPOS = [
   },
 ]
 
-export default function ResultsDashboard({ resultado, file, onReset }) {
+export default function ResultsDashboard({ resultado, entrada, onReset }) {
   const [descargando, setDescargando] = useState(false)
   const [errorPdf, setErrorPdf] = useState(null)
 
   async function handlePdf() {
+    // En modo demo no hay backend que genere el PDF con reportlab:
+    // usamos el diálogo de impresión del navegador ("Guardar como PDF").
+    if (ES_DEMO) {
+      window.print()
+      return
+    }
     setErrorPdf(null)
     setDescargando(true)
     try {
-      const { blob, filename } = await descargarReportePdf(file)
+      const { blob, filename } = await descargarReportePdf(entrada?.nombre, entrada?.texto)
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
@@ -39,7 +45,7 @@ export default function ResultsDashboard({ resultado, file, onReset }) {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 print:hidden">
         <h2 className="text-xl font-bold text-primary-600">Resultados de la validación</h2>
         <div className="flex gap-2">
           <button
@@ -53,7 +59,11 @@ export default function ResultsDashboard({ resultado, file, onReset }) {
             disabled={descargando}
             className="rounded-lg bg-accent-500 px-4 py-2 text-sm font-semibold text-white hover:bg-accent-600 disabled:opacity-60"
           >
-            {descargando ? 'Generando PDF…' : '⬇ Descargar Reporte PDF'}
+            {ES_DEMO
+              ? '🖨 Imprimir / Guardar PDF'
+              : descargando
+                ? 'Generando PDF…'
+                : '⬇ Descargar Reporte PDF'}
           </button>
         </div>
       </div>

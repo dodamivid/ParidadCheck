@@ -120,7 +120,7 @@ Flujo completo:
 │                           │  ✓ Paridad vertical              │   │
 │  ┌─────────────────┐     │  ✓ Paridad transversal           │   │
 │  │  PDF Generator  │◀────│  ✓ Acciones afirmativas          │   │
-│  │  (WeasyPrint)   │     │  ✓ Fundamentación legal          │   │
+│  │  (reportlab)    │     │  ✓ Fundamentación legal          │   │
 │  └─────────────────┘     └──────────────────────────────────┘   │
 │                                                                  │
 │           Todo en memoria — sin base de datos                    │
@@ -276,6 +276,20 @@ uvicorn backend.main:app --reload --port 8000
 
 El backend estará disponible en: `http://localhost:8000`
 Documentación automática (Swagger): `http://localhost:8000/docs`
+
+#### Endpoints
+
+| Método | Ruta | Descripción |
+|---|---|---|
+| `GET`  | `/api/health` | Estado de la API |
+| `POST` | `/api/validar` | Valida un array JSON de candidaturas |
+| `POST` | `/api/validar-csv` | Valida un archivo CSV (multipart) |
+| `POST` | `/api/reporte-pdf` | Genera el reporte PDF desde un array JSON de candidaturas |
+| `POST` | `/api/reporte-pdf-csv` | Genera el reporte PDF desde un archivo CSV (multipart) |
+
+El reporte PDF se genera con **reportlab** (rueda pura de Python, sin
+dependencias nativas de GTK/Pango que complican la instalación de WeasyPrint en
+Windows).
 
 ### Frontend (React + Vite)
 

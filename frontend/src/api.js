@@ -65,3 +65,23 @@ export async function validarCsv(file) {
   if (!res.ok) throw await readErrorBody(res)
   return res.json()
 }
+
+/** Sube el CSV a POST /api/reporte-pdf-csv y devuelve un Blob PDF. */
+export async function descargarReportePdf(file) {
+  const form = new FormData()
+  form.append('archivo', file)
+
+  let res
+  try {
+    res = await fetch(`${API_URL}/api/reporte-pdf-csv`, { method: 'POST', body: form })
+  } catch {
+    throw { mensaje: `No se pudo conectar con el backend en ${API_URL}.`, detalles: [] }
+  }
+
+  if (!res.ok) throw await readErrorBody(res)
+
+  const blob = await res.blob()
+  const dispo = res.headers.get('Content-Disposition') || ''
+  const match = dispo.match(/filename="?([^"]+)"?/)
+  return { blob, filename: match ? match[1] : 'reporte-paridad.pdf' }
+}

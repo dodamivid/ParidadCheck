@@ -3,11 +3,12 @@ import logging
 from fastapi import Body, FastAPI, File, HTTPException, UploadFile
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 
 from backend.models.candidatura import Candidatura, ResultadoValidacion
 from backend.services.csv_parser import parsear_csv
 from backend.services.motor_paridad import validar
+from backend.services.pdf_report import generar_pdf
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -25,6 +26,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["Content-Disposition"],  # el frontend lee el nombre del PDF
 )
 
 
@@ -148,6 +150,77 @@ async def validar_csv(archivo: UploadFile = File(...)):
     )
 
     return resultado
+
+
+def _validar_partido_unico(candidaturas: list[Candidatura]) -> None:
+    partidos = {c.partido for c in candidaturas}
+    if len(partidos) > 1:
+        raise HTTPException(
+            status_code=422,
+            detail=(
+                f"La lista contiene múltiples partidos: {', '.join(sorted(partidos))}. "
+                "Envíe una lista por partido."
+            ),
+        )
+
+
+def _respuesta_pdf(candidaturas: list[Candidatura]) -> Response:
+    resultado = validar(candidaturas)
+    pdf_bytes = generar_pdf(candidaturas, resultado)
+    nombre = f"reporte-paridad-{resultado.partido}.pdf".replace(" ", "_")
+
+    logger.info(
+        "Reporte PDF generado para '%s': %s (%d bytes)",
+        resultado.partido,
+        resultado.resultado_global,
+        len(pdf_bytes),
+    )
+
+    return Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{nombre}"'},
+    )
+
+
+@app.post(
+    "/api/reporte-pdf",
+    tags=["Reporte"],
+    summary="Genera el reporte institucional en PDF a partir de un array JSON de candidaturas",
+    response_class=Response,
+    responses={200: {"content": {"application/pdf": {}}}},
+)
+async def reporte_pdf_json(
+    candidaturas: list[Candidatura] = Body(
+        ...,
+        description="Array JSON de candidaturas (mismo formato que /api/validar).",
+    ),
+):
+    """Recibe las candidaturas, ejecuta el motor de reglas y devuelve el PDF descargable."""
+    if not candidaturas:
+        raise HTTPException(status_code=422, detail="La lista de candidaturas está vacía.")
+    _validar_partido_unico(candidaturas)
+    return _respuesta_pdf(candidaturas)
+
+
+@app.post(
+    "/api/reporte-pdf-csv",
+    tags=["Reporte"],
+    summary="Genera el reporte institucional en PDF a partir de un archivo CSV",
+    response_class=Response,
+    responses={200: {"content": {"application/pdf": {}}}},
+)
+async def reporte_pdf_csv(archivo: UploadFile = File(...)):
+    """Variante que recibe el mismo CSV que /api/validar-csv y devuelve el PDF descargable."""
+    if not archivo.filename or not archivo.filename.lower().endswith(".csv"):
+        raise HTTPException(status_code=422, detail="El archivo debe tener extensión .csv")
+
+    contenido = await archivo.read()
+    if len(contenido) == 0:
+        raise HTTPException(status_code=422, detail="El archivo CSV está vacío.")
+
+    candidaturas = parsear_csv(contenido)
+    return _respuesta_pdf(candidaturas)
 
 
 # ---------------------------------------------------------------------------

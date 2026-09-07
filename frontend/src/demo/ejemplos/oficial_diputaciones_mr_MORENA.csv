@@ -1,0 +1,21 @@
+nombre,genero,partido,cargo,tipo,posicion,distrito,indigena,discapacidad,fecha_nacimiento,lgbtq
+Hector Ariel Fernandez Martinez,M,MORENA,Diputación MR,PROPIETARIO,0,11 MEOQUI,false,false,1960-01-07,false
+David Oscar Castrejon Rivas,M,MORENA,Diputación MR,PROPIETARIO,0,12 CHIHUAHUA,false,false,1995-09-14,false
+Alfredo Frias Reyes,M,MORENA,Diputación MR,PROPIETARIO,0,13 GUERRERO,false,false,1990-05-20,false
+Jose Refugio Rios Dominguez,M,MORENA,Diputación MR,PROPIETARIO,0,15 CHIHUAHUA,false,false,1977-09-26,false
+Herminia Gomez Carrasco,F,MORENA,Diputación MR,PROPIETARIO,0,16 CHIHUAHUA,false,false,1968-06-27,false
+Laura Lorena Fuentes Aldape,F,MORENA,Diputación MR,PROPIETARIO,0,18 CHIHUAHUA,false,true,1969-08-18,false
+Rocio Rosalia Beltran Del Rio Torres,F,MORENA,Diputación MR,PROPIETARIO,0,19 DELICIAS,false,false,1991-05-04,false
+Jose Alberto Lara Hernandez,M,MORENA,Diputación MR,PROPIETARIO,0,20 CAMARGO,false,false,1995-05-23,false
+Karmina Vanessa Terrazas Lopez,F,MORENA,Diputación MR,PROPIETARIO,0,21 HIDALGO DEL PARRAL,false,false,1981-05-16,false
+Francisca Ivonne Contreras Peinado,F,MORENA,Diputación MR,PROPIETARIO,0,22 GUACHOCHI,true,false,1976-12-07,false
+Hector Joseph Vasquez Lerma,M,MORENA,Diputación MR,SUPLENTE,0,11 MEOQUI,false,false,1978-08-04,false
+Hector Bafidis Ochoa,M,MORENA,Diputación MR,SUPLENTE,0,12 CHIHUAHUA,false,false,1963-02-01,false
+Alondra Apodaca Jalapa,F,MORENA,Diputación MR,SUPLENTE,0,13 GUERRERO,false,false,1969-01-11,false
+Miguel Angel Colunga Martinez,M,MORENA,Diputación MR,SUPLENTE,0,15 CHIHUAHUA,false,false,1965-11-26,false
+Tania Reyes Garcia,F,MORENA,Diputación MR,SUPLENTE,0,16 CHIHUAHUA,false,false,2003-10-12,false
+Deyanira Lechuga Ornelas,F,MORENA,Diputación MR,SUPLENTE,0,18 CHIHUAHUA,false,true,1964-01-12,false
+Concepcion Valerio Hinojos,F,MORENA,Diputación MR,SUPLENTE,0,19 DELICIAS,false,false,1958-01-18,false
+Francisco Roberto Rojo Terrazas,M,MORENA,Diputación MR,SUPLENTE,0,20 CAMARGO,false,false,1971-01-13,false
+Ana Maria Perez Garcia,F,MORENA,Diputación MR,SUPLENTE,0,21 HIDALGO DEL PARRAL,false,false,1978-02-26,false
+Samayra Payan Alonzo,F,MORENA,Diputación MR,SUPLENTE,0,22 GUACHOCHI,true,false,1967-07-04,false

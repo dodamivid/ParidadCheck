@@ -73,13 +73,25 @@ Un solo error puede derivar en la **impugnación de toda una lista de candidatur
 
 ## 🎬 Demo
 
-> 📹 *Demo en vivo disponible durante el hackathón — 15 y 16 de mayo de 2026*
+### 🌐 Demo en vivo (sin instalar nada)
+
+**https://dodamivid.github.io/ParidadCheck/**
+
+Pensado para quien solo quiere ver cómo funciona. En la página principal hay un
+panel **"¿Solo quieres ver cómo funciona?"** con conjuntos de datos de ejemplo
+—basados en listas del proceso electoral de Chihuahua— que se cargan con un clic.
+
+En este despliegue el motor de reglas y el parser de CSV corren **100 % en el
+navegador** (modo demo), por lo que no hace falta el backend de FastAPI. El único
+cambio respecto a la versión completa: el reporte se obtiene con **"Imprimir /
+Guardar PDF"** del navegador en lugar del PDF de reportlab.
+
+> El despliegue se actualiza solo en cada push a `main` mediante GitHub Actions
+> (`.github/workflows/deploy.yml`). Requiere activar Pages con *Source: GitHub Actions*.
 
 ```
-[ GIF / VIDEO DEMO AQUÍ ]
-
 Flujo completo:
-1. Drag & drop del CSV de candidaturas
+1. Drag & drop del CSV de candidaturas (o clic en un ejemplo)
 2. Preview y validación de formato
 3. Procesamiento del motor de reglas (~1 segundo)
 4. Dashboard con semáforo de resultados
@@ -120,7 +132,7 @@ Flujo completo:
 │                           │  ✓ Paridad vertical              │   │
 │  ┌─────────────────┐     │  ✓ Paridad transversal           │   │
 │  │  PDF Generator  │◀────│  ✓ Acciones afirmativas          │   │
-│  │  (WeasyPrint)   │     │  ✓ Fundamentación legal          │   │
+│  │  (reportlab)    │     │  ✓ Fundamentación legal          │   │
 │  └─────────────────┘     └──────────────────────────────────┘   │
 │                                                                  │
 │           Todo en memoria — sin base de datos                    │
@@ -276,6 +288,20 @@ uvicorn backend.main:app --reload --port 8000
 
 El backend estará disponible en: `http://localhost:8000`
 Documentación automática (Swagger): `http://localhost:8000/docs`
+
+#### Endpoints
+
+| Método | Ruta | Descripción |
+|---|---|---|
+| `GET`  | `/api/health` | Estado de la API |
+| `POST` | `/api/validar` | Valida un array JSON de candidaturas |
+| `POST` | `/api/validar-csv` | Valida un archivo CSV (multipart) |
+| `POST` | `/api/reporte-pdf` | Genera el reporte PDF desde un array JSON de candidaturas |
+| `POST` | `/api/reporte-pdf-csv` | Genera el reporte PDF desde un archivo CSV (multipart) |
+
+El reporte PDF se genera con **reportlab** (rueda pura de Python, sin
+dependencias nativas de GTK/Pango que complican la instalación de WeasyPrint en
+Windows).
 
 ### Frontend (React + Vite)
 

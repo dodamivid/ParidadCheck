@@ -1,0 +1,11 @@
+nombre,genero,partido,cargo,tipo,posicion,distrito,indigena,discapacidad,fecha_nacimiento,lgbtq
+Alma Yesenia Portillo Lerma,F,MC,Diputación RP,PROPIETARIO,1,CHIHUAHUA,false,false,1990-03-15,false
+Jacqueline Villalba Fierro,F,MC,Diputación RP,SUPLENTE,1,CHIHUAHUA,false,false,1987-11-23,false
+Fernando Saul Montaño Perea,M,MC,Diputación RP,PROPIETARIO,2,CHIHUAHUA,false,false,1997-10-22,false
+Aron Loya Jaquez,M,MC,Diputación RP,SUPLENTE,2,CHIHUAHUA,false,false,1967-06-02,false
+Maria Isabel Guevara Olmos,F,MC,Diputación RP,PROPIETARIO,3,CHIHUAHUA,false,false,1986-12-26,false
+Irma Valenzuela Rueda,F,MC,Diputación RP,SUPLENTE,3,CHIHUAHUA,false,false,1984-09-07,false
+Aurelia Reyes Rubi,F,MC,Diputación RP,PROPIETARIO,4,CHIHUAHUA,true,false,1969-12-28,false
+Regina Rubi Cruz,F,MC,Diputación RP,SUPLENTE,4,CHIHUAHUA,true,false,1992-02-08,false
+Paul Rene Garcia Portillo,M,MC,Diputación RP,PROPIETARIO,5,CHIHUAHUA,false,true,1980-05-01,false
+Cleolinda Dolores Montoya Sotelo,F,MC,Diputación RP,SUPLENTE,5,CHIHUAHUA,false,false,1988-08-01,false

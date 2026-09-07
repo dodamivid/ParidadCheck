@@ -1,0 +1,11 @@
+nombre,genero,partido,cargo,tipo,posicion,distrito,indigena,discapacidad,fecha_nacimiento,lgbtq
+Ana Ramírez López,F,PAN,diputacion,propietario,1,Distrito 1,true,false,1990-03-15,false
+Carlos Mendoza Ruiz,M,PAN,diputacion,suplente,1,Distrito 1,false,false,1988-07-22,false
+Roberto Sánchez Cruz,M,PAN,diputacion,propietario,2,Distrito 2,false,false,1975-11-08,false
+María González Pérez,F,PAN,diputacion,suplente,2,Distrito 2,false,true,1995-01-30,false
+Jorge Herrera Díaz,M,PAN,diputacion,propietario,3,Distrito 3,false,false,1982-09-12,false
+Laura Torres Vega,F,PAN,diputacion,suplente,3,Distrito 3,false,false,1991-04-25,true
+Miguel Ángel Ríos,M,PAN,diputacion,propietario,4,Distrito 4,false,false,1979-12-03,false
+Patricia Núñez Salas,F,PAN,diputacion,suplente,4,Distrito 4,false,false,2001-06-18,false
+Fernanda Castro León,F,PAN,diputacion,propietario,5,Distrito 5,false,false,1987-02-09,false
+Luis Alberto Gómez,M,PAN,diputacion,suplente,5,Distrito 5,false,false,1993-08-14,false
